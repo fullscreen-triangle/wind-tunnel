@@ -1,0 +1,753 @@
+{
+  "total": 25,
+  "passed": 25,
+  "failed": 0,
+  "aggregate_verdict": "PASS",
+  "max_relative_error_across_all": 1.1102230246251565e-16,
+  "experiments": [
+    {
+      "experiment": "E01",
+      "claim": "Axiom Monotonicity: moving toward purpose does not increase S",
+      "N_trials": 2000,
+      "violations": 0,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E02",
+      "claim": "Axiom Continuity: S is 1-Lipschitz",
+      "L_theoretical": 1.0,
+      "L_empirical_max": 0.999997845119414,
+      "violations": 0,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E03",
+      "claim": "Axiom Floor Positivity: inf S = beta > 0",
+      "beta": 2.5,
+      "S_min_empirical": 2.5,
+      "floor_positive": true,
+      "floor_equals_beta": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E04",
+      "claim": "Action-cell: S flat = beta inside C*, diam(C*) > 0",
+      "beta": 2.5,
+      "S_min_inside": 2.5,
+      "S_max_inside": 2.5,
+      "S_variance_inside": 0.0,
+      "diameter": 2.0,
+      "cell_is_flat": true,
+      "diameter_positive": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E05",
+      "claim": "Local Invisibility: Val_S=1 at t=0 while holonomy > 0",
+      "delta": 0.05,
+      "x_initial": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "local_validation_passes": true,
+      "holonomy_per_traversal": 0.15,
+      "theoretical_traversals_to_exit": 5,
+      "empirical_traversals_to_exit": 5,
+      "invariant_holds": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E06",
+      "claim": "Unit tests cannot distinguish delta=0 from delta>0 at t=0",
+      "unit_test_results_correct_system": [
+        1,
+        1,
+        1
+      ],
+      "unit_test_results_buggy_system": [
+        1,
+        1,
+        1
+      ],
+      "results_identical": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E07",
+      "claim": "No Template: bounded observer cannot encode phi_R when kappa(S) > log2|K_R|",
+      "cases": [
+        {
+          "K_R": 4,
+          "log2_K_R": 2.0,
+          "kappa_S": 3.0,
+          "required_pairs": 8.0,
+          "observer_can_encode": false
+        },
+        {
+          "K_R": 8,
+          "log2_K_R": 3.0,
+          "kappa_S": 4.0,
+          "required_pairs": 16.0,
+          "observer_can_encode": false
+        },
+        {
+          "K_R": 16,
+          "log2_K_R": 4.0,
+          "kappa_S": 5.0,
+          "required_pairs": 32.0,
+          "observer_can_encode": false
+        },
+        {
+          "K_R": 32,
+          "log2_K_R": 5.0,
+          "kappa_S": 6.0,
+          "required_pairs": 64.0,
+          "observer_can_encode": false
+        },
+        {
+          "K_R": 64,
+          "log2_K_R": 6.0,
+          "kappa_S": 7.0,
+          "required_pairs": 128.0,
+          "observer_can_encode": false
+        }
+      ],
+      "all_cases_fail_to_encode": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E08",
+      "claim": "Test suite completeness requires exponential growth with system complexity",
+      "rows": [
+        {
+          "n_units": 3,
+          "kappa_S": 3,
+          "test_suite_size_needed": 8
+        },
+        {
+          "n_units": 5,
+          "kappa_S": 5,
+          "test_suite_size_needed": 32
+        },
+        {
+          "n_units": 8,
+          "kappa_S": 8,
+          "test_suite_size_needed": 256
+        },
+        {
+          "n_units": 10,
+          "kappa_S": 10,
+          "test_suite_size_needed": 1024
+        },
+        {
+          "n_units": 12,
+          "kappa_S": 12,
+          "test_suite_size_needed": 4096
+        }
+      ],
+      "sizes_strictly_increasing": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E09",
+      "claim": "Stateless holonomy = 3*delta for 3-cycle with per-edge shift delta",
+      "cases": [
+        {
+          "delta": 0.0,
+          "x0": 0.3,
+          "T_c_x": 0.3,
+          "T_c_spec_x": 0.3,
+          "holonomy": 0.0,
+          "holonomy_equals_3delta": true
+        },
+        {
+          "delta": 0.01,
+          "x0": 0.3,
+          "T_c_x": 0.33,
+          "T_c_spec_x": 0.3,
+          "holonomy": 0.03,
+          "holonomy_equals_3delta": true
+        },
+        {
+          "delta": 0.05,
+          "x0": 0.3,
+          "T_c_x": 0.45,
+          "T_c_spec_x": 0.3,
+          "holonomy": 0.15,
+          "holonomy_equals_3delta": true
+        },
+        {
+          "delta": 0.1,
+          "x0": 0.3,
+          "T_c_x": 0.6,
+          "T_c_spec_x": 0.3,
+          "holonomy": 0.3,
+          "holonomy_equals_3delta": true
+        },
+        {
+          "delta": 0.2,
+          "x0": 0.3,
+          "T_c_x": 0.9,
+          "T_c_spec_x": 0.3,
+          "holonomy": 0.6,
+          "holonomy_equals_3delta": true
+        }
+      ],
+      "verdict": "PASS",
+      "max_relative_error": 1.1102230246251565e-16
+    },
+    {
+      "experiment": "E10",
+      "claim": "Stateful holonomy = 0 for correct accumulator, > 0 for buggy one",
+      "cases": [
+        {
+          "case": "correct",
+          "actual_increment": 1.0,
+          "T_c_x": 6.0,
+          "T_c_spec_x": 6.0,
+          "holonomy": 0.0,
+          "expected_holonomy": 0.0,
+          "correct": true
+        },
+        {
+          "case": "off_by_01",
+          "actual_increment": 1.01,
+          "T_c_x": 6.01,
+          "T_c_spec_x": 6.0,
+          "holonomy": 0.01,
+          "expected_holonomy": 0.01,
+          "correct": true
+        },
+        {
+          "case": "off_by_1",
+          "actual_increment": 1.1,
+          "T_c_x": 6.1,
+          "T_c_spec_x": 6.0,
+          "holonomy": 0.1,
+          "expected_holonomy": 0.1,
+          "correct": true
+        },
+        {
+          "case": "zero_bug",
+          "actual_increment": 0.0,
+          "T_c_x": 5.0,
+          "T_c_spec_x": 6.0,
+          "holonomy": 1.0,
+          "expected_holonomy": 1.0,
+          "correct": true
+        }
+      ],
+      "correct_case_no_false_alarm": true,
+      "buggy_cases_all_detected": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E11",
+      "claim": "Cycle Inconsistency: nonzero holonomy => system exits C*",
+      "cases": [
+        {
+          "delta": 0.0,
+          "holonomy": 0.0,
+          "exits_cell": false,
+          "exited_at_traversal": null,
+          "theoretical_exit_traversal": null,
+          "nonzero_hol_implies_exit": true
+        },
+        {
+          "delta": 0.01,
+          "holonomy": 0.01,
+          "exits_cell": true,
+          "exited_at_traversal": 70,
+          "theoretical_exit_traversal": 100,
+          "nonzero_hol_implies_exit": true
+        },
+        {
+          "delta": 0.05,
+          "holonomy": 0.05,
+          "exits_cell": true,
+          "exited_at_traversal": 14,
+          "theoretical_exit_traversal": 20,
+          "nonzero_hol_implies_exit": true
+        },
+        {
+          "delta": 0.1,
+          "holonomy": 0.1,
+          "exits_cell": true,
+          "exited_at_traversal": 8,
+          "theoretical_exit_traversal": 10,
+          "nonzero_hol_implies_exit": true
+        },
+        {
+          "delta": 0.3,
+          "holonomy": 0.3,
+          "exits_cell": true,
+          "exited_at_traversal": 3,
+          "theoretical_exit_traversal": 4,
+          "nonzero_hol_implies_exit": true
+        }
+      ],
+      "zero_holonomy_stays_in_cell": true,
+      "nonzero_holonomy_exits_cell": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E12",
+      "claim": "DAG: holonomy=0 trivially; errors detectable only via boundary conditions",
+      "dag_holonomy": 0.0,
+      "correct_boundary_output": 7.0,
+      "correct_boundary_passes": true,
+      "wrong_boundary_output": 9.0,
+      "wrong_boundary_passes": false,
+      "holonomy_catches_boundary_error": false,
+      "boundary_check_needed": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E13",
+      "claim": "Purpose Existence: infimising sequence for S_flat converges to beta",
+      "S_sequence_first_5": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "S_sequence_last_5": [
+        2.5,
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "limit": 2.5,
+      "beta": 2.5,
+      "sequence_non_increasing": true,
+      "limit_equals_beta": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E14",
+      "claim": "Isolation Blindness: identical local props, different purposelessness",
+      "floor_E1": 0.333333,
+      "floor_E1_minus_u": 0.5,
+      "floor_E2": 0.333333,
+      "floor_E2_minus_u": 0.333333,
+      "u_purposeful_in_E1": true,
+      "u_purposeless_in_E2": true,
+      "local_properties_identical": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E15",
+      "claim": "Kuramoto dynamics: R_ens increases when K > K_c",
+      "N": 5,
+      "K": 3.0,
+      "K_c": 0.175203,
+      "sigma_omega": 0.275208,
+      "R_initial": 0.485558,
+      "R_final": 0.995731,
+      "K_above_Kc": true,
+      "R_ens_increased": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E16",
+      "claim": "Order parameter formula R_ens = |mean(exp(i*theta_k))|",
+      "cases": [
+        {
+          "case": "all_aligned",
+          "thetas": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "R_ens": 1.0,
+          "expected": 1.0,
+          "error": 0.0
+        },
+        {
+          "case": "all_opposed",
+          "thetas": [
+            0.0,
+            3.141593,
+            0.0,
+            3.141593
+          ],
+          "R_ens": 0.0,
+          "expected": 0.0,
+          "error": 0.0
+        },
+        {
+          "case": "uniform_spread",
+          "thetas": [
+            0.0,
+            1.570796,
+            3.141593,
+            4.712389
+          ],
+          "R_ens": 0.0,
+          "expected": 0.0,
+          "error": 0.0
+        },
+        {
+          "case": "partial",
+          "thetas": [
+            0.0,
+            0.1,
+            0.2,
+            0.3
+          ],
+          "R_ens": 0.9937606692,
+          "expected": null,
+          "error": 0.0
+        }
+      ],
+      "verdict": "PASS",
+      "max_relative_error": 6.123233995736766e-17
+    },
+    {
+      "experiment": "E17",
+      "claim": "Critical coupling K_c = 2*sigma_omega/pi; R_ens onset at K_c",
+      "sigma_omega": 1.288741,
+      "K_c_theoretical": 0.820438,
+      "K_values": [
+        0.4102,
+        0.6564,
+        0.9025,
+        1.1486,
+        1.3947,
+        1.6409,
+        1.887
+      ],
+      "R_values": [
+        0.099906,
+        0.192962,
+        0.169981,
+        0.156392,
+        0.15835,
+        0.173709,
+        0.14921
+      ],
+      "R_below_Kc": 0.099906,
+      "R_above_Kc": 0.14921,
+      "R_increases_with_K": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E18",
+      "claim": "Five-regime classification partitions [0,1] correctly",
+      "cases": [
+        {
+          "R_ens": 0.1,
+          "regime": "turbulent",
+          "expected": "turbulent",
+          "correct": true
+        },
+        {
+          "R_ens": 0.29,
+          "regime": "turbulent",
+          "expected": "turbulent",
+          "correct": true
+        },
+        {
+          "R_ens": 0.3,
+          "regime": "aperture_dominated",
+          "expected": "aperture_dominated",
+          "correct": true
+        },
+        {
+          "R_ens": 0.49,
+          "regime": "aperture_dominated",
+          "expected": "aperture_dominated",
+          "correct": true
+        },
+        {
+          "R_ens": 0.5,
+          "regime": "hierarchical_cascade",
+          "expected": "hierarchical_cascade",
+          "correct": true
+        },
+        {
+          "R_ens": 0.79,
+          "regime": "hierarchical_cascade",
+          "expected": "hierarchical_cascade",
+          "correct": true
+        },
+        {
+          "R_ens": 0.8,
+          "regime": "coherent",
+          "expected": "coherent",
+          "correct": true
+        },
+        {
+          "R_ens": 0.94,
+          "regime": "coherent",
+          "expected": "coherent",
+          "correct": true
+        },
+        {
+          "R_ens": 0.95,
+          "regime": "phase_locked",
+          "expected": "phase_locked",
+          "correct": true
+        },
+        {
+          "R_ens": 1.0,
+          "regime": "phase_locked",
+          "expected": "phase_locked",
+          "correct": true
+        }
+      ],
+      "regime_boundaries": [
+        0.3,
+        0.5,
+        0.8,
+        0.95
+      ],
+      "all_labels_correct": true,
+      "covers_unit_interval": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E19",
+      "claim": "Partition Extinction: friction decreases with K, near-zero at phase-lock",
+      "K_c": 0.33127,
+      "cases": [
+        {
+          "K": 0.0994,
+          "K_over_Kc": 0.3,
+          "R_ens": 0.16689,
+          "regime": "turbulent",
+          "coordination_friction": 0.62177701
+        },
+        {
+          "K": 0.3313,
+          "K_over_Kc": 1.0,
+          "R_ens": 0.146308,
+          "regime": "turbulent",
+          "coordination_friction": 0.62180792
+        },
+        {
+          "K": 0.9938,
+          "K_over_Kc": 3.0,
+          "R_ens": 0.774753,
+          "regime": "hierarchical_cascade",
+          "coordination_friction": 0.12318972
+        },
+        {
+          "K": 1.9876,
+          "K_over_Kc": 6.0,
+          "R_ens": 0.959479,
+          "regime": "phase_locked",
+          "coordination_friction": 0.0
+        },
+        {
+          "K": 3.3127,
+          "K_over_Kc": 10.0,
+          "R_ens": 0.987018,
+          "regime": "phase_locked",
+          "coordination_friction": 0.0
+        }
+      ],
+      "friction_decreasing_with_K": true,
+      "phase_locked_low_friction": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E20",
+      "claim": "Subtask Decoupling: below K_c, local S decoupled from global S",
+      "K_c": 1.479395,
+      "K": 0.147939,
+      "R_ens": 0.090254,
+      "regime": "turbulent",
+      "mean_local_S": 0.976711,
+      "global_incoherence_proxy": 0.909746,
+      "decoupling_observed": false,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E21",
+      "claim": "Sync tension = aperture_gap + |omega_i - omega_j|; R_est = exp(-mean_tension)",
+      "edges": [
+        {
+          "u_i": "A",
+          "u_j": "B",
+          "aperture_gap": 0.0,
+          "omega_i": 1.0,
+          "omega_j": 1.1,
+          "tension": 0.1
+        },
+        {
+          "u_i": "B",
+          "u_j": "C",
+          "aperture_gap": 0.5,
+          "omega_i": 1.1,
+          "omega_j": 2.0,
+          "tension": 1.4
+        },
+        {
+          "u_i": "C",
+          "u_j": "A",
+          "aperture_gap": 0.1,
+          "omega_i": 2.0,
+          "omega_j": 1.0,
+          "tension": 1.1
+        }
+      ],
+      "tensions": [
+        0.1,
+        1.4,
+        1.1
+      ],
+      "mean_tension": 0.866667,
+      "R_est": 0.42035,
+      "regime": "aperture_dominated",
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E22",
+      "claim": "Static R_est = exp(-tension) is strictly decreasing in tension",
+      "tension_levels": [
+        0.0,
+        0.2,
+        0.5,
+        1.0,
+        2.0,
+        5.0
+      ],
+      "R_est_values": [
+        1.0,
+        0.81873075,
+        0.60653066,
+        0.36787944,
+        0.13533528,
+        0.00673795
+      ],
+      "strictly_decreasing": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E23",
+      "claim": "Decoherence zone: subgraph with higher tension has R_est < global R_est",
+      "R_global": 0.358796,
+      "R_tight_cluster": 0.951229,
+      "R_loose_pair": 0.135335,
+      "decoherence_zone_detected": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E24",
+      "claim": "Dynamic holonomy measurement: hol_dyn = ||Gamma_last - T_c_spec(x0)||",
+      "cases": [
+        {
+          "case": "zero_drift",
+          "drift_per_edge": 0.0,
+          "Gamma_last": 1.0,
+          "T_c_spec_x0": 1.0,
+          "hol_dyn": 0.0,
+          "is_violation": false
+        },
+        {
+          "case": "small_drift",
+          "drift_per_edge": 0.03,
+          "Gamma_last": 1.09,
+          "T_c_spec_x0": 1.0,
+          "hol_dyn": 0.09,
+          "is_violation": true
+        },
+        {
+          "case": "large_drift",
+          "drift_per_edge": 0.3,
+          "Gamma_last": 1.9,
+          "T_c_spec_x0": 1.0,
+          "hol_dyn": 0.9,
+          "is_violation": true
+        }
+      ],
+      "zero_drift_no_violation": true,
+      "nonzero_drift_detected": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "E25",
+      "claim": "Contribution score detects purposeless units (delta_S=0 iff purposeless)",
+      "floor_full_ensemble": 0.33333333,
+      "contribution_scores": [
+        {
+          "unit": "u1",
+          "fn": "f1",
+          "floor_minus_u": 0.33333333,
+          "delta_S": 0.0,
+          "purposeless": true
+        },
+        {
+          "unit": "u2",
+          "fn": "f2",
+          "floor_minus_u": 0.33333333,
+          "delta_S": 0.0,
+          "purposeless": true
+        },
+        {
+          "unit": "u3",
+          "fn": "f3",
+          "floor_minus_u": 0.5,
+          "delta_S": -0.16666667,
+          "purposeless": false
+        },
+        {
+          "unit": "u4",
+          "fn": "f2",
+          "floor_minus_u": 0.33333333,
+          "delta_S": 0.0,
+          "purposeless": true
+        },
+        {
+          "unit": "u5",
+          "fn": "f1",
+          "floor_minus_u": 0.33333333,
+          "delta_S": 0.0,
+          "purposeless": true
+        }
+      ],
+      "expected_purposeless": [
+        "u1",
+        "u2",
+        "u4",
+        "u5"
+      ],
+      "detected_purposeless": [
+        "u1",
+        "u2",
+        "u4",
+        "u5"
+      ],
+      "detection_correct": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    }
+  ]
+}

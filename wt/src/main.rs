@@ -8,7 +8,7 @@
 //!   wt [static]  [<project-dir>]               [--json] [--cycle-depth N] [--threshold T]
 //!   wt dynamic   [<project-dir>] <traces-dir>   [--json] [--dt T] [--tol T]
 //!   wt purpose   [<project-dir>] <traces-dir>   [--json] [--alpha A]
-//!   wt run       [<project-dir>] [<traces-dir>]  [--json]
+//!   wt run       [<project-dir>] [<traces-dir>]  [--json] [--backend treesitter|hf|auto]
 //!   wt report    [<wt-output.json>]
 //!   wt init      [<project-dir>]                 — (re)build the purpose index only
 //!   wt version
@@ -17,6 +17,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use anyhow::{bail, Context};
 
+use wt_extract::Backend;
 use wt_graph::SystemGraph;
 use wt_static::StaticReport;
 use wt_dynamic::{DynamicReport, RuntimeRecord};
@@ -46,6 +47,7 @@ struct Args {
     dt:          f64,
     alpha:       f64,
     no_cache:    bool,
+    backend:     Backend,
 }
 
 impl Args {
@@ -83,6 +85,7 @@ impl Args {
         let mut tol         = DEFAULT_TOL;
         let mut dt          = DEFAULT_DT;
         let mut alpha       = DEFAULT_ALPHA;
+        let mut backend     = Backend::Auto;
         let mut positionals: Vec<PathBuf> = Vec::new();
 
         let mut i = 0;
@@ -95,6 +98,7 @@ impl Args {
                 "--tol"         => { i += 1; tol         = raw[i].parse()?; }
                 "--dt"          => { i += 1; dt          = raw[i].parse()?; }
                 "--alpha"       => { i += 1; alpha       = raw[i].parse()?; }
+                "--backend"     => { i += 1; backend     = raw[i].parse()?; }
                 other           => positionals.push(PathBuf::from(other)),
             }
             i += 1;
@@ -123,7 +127,7 @@ impl Args {
         };
 
         Ok(Args { subcommand, project_dir, traces_dir, report_file,
-                  json, no_cache, cycle_depth, threshold, tol, dt, alpha })
+                  json, no_cache, cycle_depth, threshold, tol, dt, alpha, backend })
     }
 }
 
@@ -166,12 +170,16 @@ Usage (all <project-dir> default to the current directory):
 
 Flags:
   --json             emit JSON instead of human-readable output
-  --no-cache         ignore cached wt-graph.json, rebuild from purpose
-  --cycle-depth N    max cycle length for Johnson's algorithm (default: {DEFAULT_CYCLE_DEPTH})
-  --threshold T      static residual threshold for cycle candidates   (default: {DEFAULT_THRESHOLD})
-  --tol T            holonomy violation tolerance                       (default: {DEFAULT_TOL})
-  --dt T             R_dyn time-series step                             (default: {DEFAULT_DT})
-  --alpha A          purposelessness significance level                 (default: {DEFAULT_ALPHA})
+  --no-cache         ignore cached wt-graph.json, rebuild from source
+  --backend B        extraction backend: treesitter | hf | auto          (default: auto)
+                       treesitter  — AST-based, exact (Rust/Python/JS/TS)
+                       hf          — HuggingFace Inference API (requires HF_TOKEN)
+                       auto        — tree-sitter first, HF fallback
+  --cycle-depth N    max cycle length for Johnson's algorithm             (default: {DEFAULT_CYCLE_DEPTH})
+  --threshold T      static residual threshold for cycle candidates       (default: {DEFAULT_THRESHOLD})
+  --tol T            holonomy violation tolerance                         (default: {DEFAULT_TOL})
+  --dt T             R_dyn time-series step                               (default: {DEFAULT_DT})
+  --alpha A          purposelessness significance level                   (default: {DEFAULT_ALPHA})
 
 Output files (written to <project-dir>/.wt/):
   graph.json         cached dependency graph
@@ -229,7 +237,7 @@ fn wt_dir(project_dir: &Path) -> anyhow::Result<PathBuf> {
 
 // ── Graph loading ─────────────────────────────────────────────────────────────
 
-fn load_graph(project_dir: &Path, no_cache: bool) -> anyhow::Result<SystemGraph> {
+fn load_graph(project_dir: &Path, no_cache: bool, backend: Backend) -> anyhow::Result<SystemGraph> {
     let cache = wt_dir(project_dir)?.join("graph.json");
 
     if !no_cache && cache.exists() {
@@ -238,9 +246,7 @@ fn load_graph(project_dir: &Path, no_cache: bool) -> anyhow::Result<SystemGraph>
         return SystemGraph::from_json(&raw).context("parsing .wt/graph.json");
     }
 
-    let purpose_exe = which_purpose()?;
-    eprintln!("  Indexing project with `purpose`…");
-    let graph = wt_graph::purpose::graph_from_project(&purpose_exe, project_dir, true)?;
+    let graph = build_graph(project_dir, backend)?;
 
     // Cache for subsequent calls.
     std::fs::write(&cache, graph.to_json()?)
@@ -249,12 +255,94 @@ fn load_graph(project_dir: &Path, no_cache: bool) -> anyhow::Result<SystemGraph>
     Ok(graph)
 }
 
+/// Build a fresh graph from source files using the chosen extraction backend.
+/// Falls back to the `purpose` CLI for projects where source parsing is unavailable.
+fn build_graph(project_dir: &Path, backend: Backend) -> anyhow::Result<SystemGraph> {
+    // Collect all source files under project_dir.
+    let source_files = collect_sources(project_dir);
+
+    if source_files.is_empty() || backend == Backend::Hf {
+        // If no recognised source files exist (or caller forced HF), fall back to purpose.
+        // For pure HF: still iterate source files if available.
+        if !source_files.is_empty() && backend == Backend::Hf {
+            eprintln!("  Extracting with HF backend ({} files)…", source_files.len());
+            return extract_to_graph(&source_files, Backend::Hf);
+        }
+        eprintln!("  Falling back to `purpose` CLI (no recognised source files found).");
+        let exe = which_purpose()?;
+        return wt_graph::purpose::graph_from_project(&exe, project_dir, true);
+    }
+
+    eprintln!("  Extracting from {} source files (backend: {backend:?})…", source_files.len());
+    extract_to_graph(&source_files, backend)
+}
+
+/// Walk project_dir and return all .rs / .py / .js / .ts / .mjs / .tsx files.
+fn collect_sources(project_dir: &Path) -> Vec<std::path::PathBuf> {
+    const EXTENSIONS: &[&str] = &["rs", "py", "js", "mjs", "cjs", "ts", "mts", "cts", "tsx"];
+    const SKIP_DIRS:  &[&str] = &["target", "node_modules", ".git", ".wt", ".purpose", "dist", "__pycache__"];
+
+    let mut out = Vec::new();
+    let Ok(entries) = std::fs::read_dir(project_dir) else { return out; };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
+            if SKIP_DIRS.contains(&name) { continue; }
+            let sub = collect_sources(&path);
+            out.extend(sub);
+        } else if path.is_file() {
+            let ext = path.extension().and_then(|e| e.to_str()).unwrap_or("").to_lowercase();
+            if EXTENSIONS.contains(&ext.as_str()) {
+                out.push(path);
+            }
+        }
+    }
+    out
+}
+
+/// Run wt-extract over a list of source files and merge results into a SystemGraph.
+fn extract_to_graph(files: &[std::path::PathBuf], backend: Backend) -> anyhow::Result<SystemGraph> {
+    use wt_graph::{Unit, Edge};
+
+    let mut units: Vec<Unit> = Vec::new();
+    let mut edges: Vec<Edge> = Vec::new();
+
+    for path in files {
+        match wt_extract::extract(path, backend) {
+            Ok(unit_data) => {
+                for ud in unit_data {
+                    units.push(Unit {
+                        id:         ud.id,
+                        aperture:   ud.aperture,
+                        production: ud.production,
+                        freq_est:   ud.freq_est,
+                    });
+                    edges.extend(ud.calls);
+                }
+            }
+            Err(e) => {
+                eprintln!("    [warn] {}: {e:#}", path.display());
+            }
+        }
+    }
+
+    // Deduplicate units by id (take first occurrence).
+    let mut seen = std::collections::HashSet::new();
+    units.retain(|u| seen.insert(u.id.clone()));
+
+    // Drop edges that reference unknown units.
+    let known: std::collections::HashSet<_> = units.iter().map(|u| &u.id).collect();
+    edges.retain(|e| known.contains(&e.from) && known.contains(&e.to));
+
+    Ok(SystemGraph { units, edges })
+}
+
 // ── Subcommands ───────────────────────────────────────────────────────────────
 
 fn cmd_init(args: &Args) -> anyhow::Result<()> {
-    let purpose_exe = which_purpose()?;
     eprintln!("Indexing {} …", args.project_dir.display());
-    let graph = wt_graph::purpose::graph_from_project(&purpose_exe, &args.project_dir, true)?;
+    let graph = build_graph(&args.project_dir, args.backend)?;
     let cache = wt_dir(&args.project_dir)?.join("graph.json");
     std::fs::write(&cache, graph.to_json()?)?;
     eprintln!("Index built: {} units, {} edges.", graph.units.len(), graph.edges.len());
@@ -263,7 +351,7 @@ fn cmd_init(args: &Args) -> anyhow::Result<()> {
 }
 
 fn cmd_static(args: &Args) -> anyhow::Result<()> {
-    let graph  = load_graph(&args.project_dir, args.no_cache)?;
+    let graph  = load_graph(&args.project_dir, args.no_cache, args.backend)?;
     let report = StaticReport::compute(&graph, args.cycle_depth, args.threshold);
 
     if args.json {
@@ -300,7 +388,7 @@ fn cmd_static(args: &Args) -> anyhow::Result<()> {
 fn cmd_dynamic(args: &Args) -> anyhow::Result<()> {
     let traces_dir = args.traces_dir.as_ref()
         .ok_or_else(|| anyhow::anyhow!("dynamic requires <traces-dir>"))?;
-    let graph   = load_graph(&args.project_dir, args.no_cache)?;
+    let graph   = load_graph(&args.project_dir, args.no_cache, args.backend)?;
     let records = wt_dynamic::load_traces(traces_dir)?;
     let report  = DynamicReport::compute(&graph, &records, args.dt, args.tol, args.cycle_depth);
 
@@ -355,7 +443,7 @@ fn cmd_run(args: &Args) -> anyhow::Result<()> {
     eprintln!("\n=== Wind Tunnel: {} ===\n", args.project_dir.display());
 
     eprintln!("[1/3] Static analysis");
-    let graph         = load_graph(&args.project_dir, args.no_cache)?;
+    let graph         = load_graph(&args.project_dir, args.no_cache, args.backend)?;
     let static_report = StaticReport::compute(&graph, args.cycle_depth, args.threshold);
     eprintln!("      Regime: {}   R_est={:.4}   units={}   edges={}",
         static_report.regime.as_str(), static_report.r_est,

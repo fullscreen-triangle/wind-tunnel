@@ -1,6 +1,10 @@
-# Wind Tunnel
 
-A global self-consistency framework for software correctness.
+<h1 align="center">Windtunnel</h1>
+<p align="center"><em>Code Testing Framework</em></p>
+
+<p align="center">
+  <img src="assets/img/wind-tunnel.jpg" alt="Logo" width="300"/>
+</p>
 
 ---
 

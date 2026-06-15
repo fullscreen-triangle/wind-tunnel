@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "crates/wt-graph",
+    "crates/wt-extract",
     "crates/wt-static",
     "crates/wt-dynamic",
     "crates/wt-purpose",
@@ -11,7 +12,13 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-serde       = { version = "1",    features = ["derive"] }
-serde_json  = { version = "1" }
-thiserror   = { version = "1" }
-anyhow      = { version = "1" }
+serde              = { version = "1",      features = ["derive"] }
+serde_json         = { version = "1" }
+thiserror          = { version = "1" }
+anyhow             = { version = "1" }
+tree-sitter        = { version = "0.26" }
+tree-sitter-rust   = { version = "0.24" }
+tree-sitter-python = { version = "0.25" }
+tree-sitter-javascript = { version = "0.25" }
+tree-sitter-typescript = { version = "0.23" }
+ureq               = { version = "3",      features = ["json"] }

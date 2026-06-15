@@ -165,11 +165,43 @@ Strike-through (`~~item~~`) marks completed tasks.
 
 ---
 
+## Phase 9 — `wt-extract` (dual extraction backend)
+
+### 9.1 Crate skeleton
+- ~~Add `crates/wt-extract` to workspace `Cargo.toml`~~
+- ~~`Extractor` trait: `fn extract(&self, path: &Path) -> Result<Vec<UnitData>>`~~
+- ~~`UnitData { id, aperture, production, freq_est, calls }`~~
+- ~~`Backend` enum: `TreeSitter | Hf | Auto`; implements `FromStr` and `Default`~~
+- ~~`extract(path, backend)` top-level dispatcher~~
+
+### 9.2 Tree-sitter backend
+- ~~`TreeSitterExtractor` dispatcher — routes by file extension~~
+- ~~`rust.rs` — `function_item` / `impl_item` nodes; parameter types; return type; call_expression edges~~
+- ~~`python.rs` — `function_definition`; typed/untyped params; `-> Type` annotation; `call` edges~~
+- ~~`js.rs` — `function_declaration`, `arrow_function`, `method_definition`; TS `:Type` annotations; `call_expression` edges~~
+- ~~Uniform fallback: unannotated params → `"Any"` / `"any"`; missing return → `"()"` / `"Any"` / `"any"`~~
+
+### 9.3 HF Inference API backend
+- ~~`HfExtractor::from_env()` — reads `HF_TOKEN`, `WT_HF_MODEL` (default `bigcode/starcoder2-7b`)~~
+- ~~Prompt engineering: structured JSON array extraction via text-generation endpoint~~
+- ~~`parse_json_array()` — bracket-balanced extractor tolerant of model preamble~~
+- ~~Graceful empty return when no array found (caller decides fallback)~~
+
+### 9.4 CLI integration
+- ~~`--backend treesitter|hf|auto` flag added to `wt` CLI~~
+- ~~`collect_sources()` — recursive walker skipping `target/`, `node_modules/`, `.git/`, etc.~~
+- ~~`extract_to_graph()` — merges `UnitData` from all files; deduplicates units; drops cross-file edges~~
+- ~~`build_graph()` — backend dispatch; falls back to `purpose` CLI when no source files found~~
+- ~~`cmd_init` updated to use `build_graph`~~
+- ~~Help text updated with backend flag documentation~~
+
+---
+
 ## Unblocking order
 
 ```
 Phase 0 ✓ → Phase 1 ✓ → Phase 2 ✓ → Phase 3 ✓ → Phase 4 ✓ ─┐
-                                                               ├→ Phase 6 ✓ → Phase 7 ✓ → Phase 8 ✓
+                                                               ├→ Phase 6 ✓ → Phase 7 ✓ → Phase 8 ✓ → Phase 9 ✓
                                                   Phase 5 ✓ ──┘
 ```
 

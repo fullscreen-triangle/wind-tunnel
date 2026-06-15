@@ -9,6 +9,7 @@ path = "src/main.rs"
 
 [dependencies]
 wt-graph   = { path = "../crates/wt-graph" }
+wt-extract = { path = "../crates/wt-extract" }
 wt-static  = { path = "../crates/wt-static" }
 wt-dynamic = { path = "../crates/wt-dynamic" }
 wt-purpose = { path = "../crates/wt-purpose" }

@@ -8,7 +8,11 @@ __pycache__/
 *.pyo
 .venv/
 venv/
+
+# Environment / secrets
 .env
+.env.local
+.env.local.example
 
 # LaTeX build artefacts
 *.aux

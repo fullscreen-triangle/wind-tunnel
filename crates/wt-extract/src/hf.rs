@@ -23,9 +23,11 @@ pub struct HfExtractor {
 }
 
 impl HfExtractor {
-    /// Reads `HF_TOKEN` and `WT_HF_MODEL` from the environment.
+    /// Reads `HF_TOKEN` (or `HUGGINGFACE_HUB_TOKEN` as a fallback) and `WT_HF_MODEL`.
     pub fn from_env() -> Self {
-        let token = std::env::var("HF_TOKEN").ok();
+        let token = std::env::var("HF_TOKEN")
+            .or_else(|_| std::env::var("HUGGINGFACE_HUB_TOKEN"))
+            .ok();
         let model = std::env::var("WT_HF_MODEL").unwrap_or_else(|_| DEFAULT_MODEL.to_string());
         Self { token, model }
     }
@@ -35,9 +37,12 @@ impl HfExtractor {
     }
 
     fn bearer(&self) -> Result<String> {
-        self.token
-            .clone()
-            .ok_or_else(|| anyhow::anyhow!("HF_TOKEN is not set; cannot use the HF backend"))
+        self.token.clone().ok_or_else(|| {
+            anyhow::anyhow!(
+                "neither HF_TOKEN nor HUGGINGFACE_HUB_TOKEN is set; \
+                 copy .env.local.example to .env.local and set your token"
+            )
+        })
     }
 }
 

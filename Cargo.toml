@@ -5,6 +5,7 @@ members = [
     "crates/wt-dynamic",
     "crates/wt-purpose",
     "crates/wt-report",
+    "crates/wt-tests",
     "wt",
 ]
 resolver = "2"

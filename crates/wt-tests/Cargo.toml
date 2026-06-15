@@ -1,0 +1,17 @@
+[package]
+name    = "wt-tests"
+version = "0.1.0"
+edition = "2021"
+
+# This crate contains only integration tests; it has no library target.
+[[test]]
+name = "e2e"
+path = "tests/e2e.rs"
+
+[dev-dependencies]
+wt-graph   = { path = "../wt-graph" }
+wt-static  = { path = "../wt-static" }
+wt-dynamic = { path = "../wt-dynamic" }
+wt-purpose = { path = "../wt-purpose" }
+wt-report  = { path = "../wt-report" }
+serde_json = { workspace = true }

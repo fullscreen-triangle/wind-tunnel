@@ -1,0 +1,17 @@
+[package]
+name    = "wt"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "wt"
+path = "src/main.rs"
+
+[dependencies]
+wt-graph   = { path = "../crates/wt-graph" }
+wt-static  = { path = "../crates/wt-static" }
+wt-dynamic = { path = "../crates/wt-dynamic" }
+wt-purpose = { path = "../crates/wt-purpose" }
+wt-report  = { path = "../crates/wt-report" }
+serde_json = { workspace = true }
+anyhow     = { workspace = true }

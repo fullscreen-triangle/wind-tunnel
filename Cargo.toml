@@ -1,0 +1,16 @@
+[workspace]
+members = [
+    "crates/wt-graph",
+    "crates/wt-static",
+    "crates/wt-dynamic",
+    "crates/wt-purpose",
+    "crates/wt-report",
+    "wt",
+]
+resolver = "2"
+
+[workspace.dependencies]
+serde       = { version = "1",    features = ["derive"] }
+serde_json  = { version = "1" }
+thiserror   = { version = "1" }
+anyhow      = { version = "1" }

@@ -1,0 +1,12 @@
+[package]
+name    = "wt-purpose"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wt-graph   = { path = "../wt-graph" }
+wt-dynamic = { path = "../wt-dynamic" }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+thiserror  = { workspace = true }
+anyhow     = { workspace = true }

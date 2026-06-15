@@ -1,0 +1,14 @@
+[package]
+name    = "wt-report"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wt-graph   = { path = "../wt-graph" }
+wt-static  = { path = "../wt-static" }
+wt-dynamic = { path = "../wt-dynamic" }
+wt-purpose = { path = "../wt-purpose" }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+thiserror  = { workspace = true }
+anyhow     = { workspace = true }

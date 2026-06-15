@@ -52,6 +52,16 @@ impl Args {
     fn parse() -> anyhow::Result<Self> {
         let mut raw: Vec<String> = std::env::args().skip(1).collect();
 
+        // Global flags that work anywhere in the argv.
+        if raw.iter().any(|a| a == "--help" || a == "-h" || a == "help") {
+            print_usage();
+            std::process::exit(0);
+        }
+        if raw.iter().any(|a| a == "--version" || a == "-V" || a == "version") {
+            println!("wt {VERSION}");
+            std::process::exit(0);
+        }
+
         // No arguments: default to `wt static` in CWD.
         if raw.is_empty() {
             raw.push("static".to_owned());
@@ -59,21 +69,12 @@ impl Args {
 
         // Treat bare `wt .` or `wt /some/path` (no subcommand keyword) as `wt run <path>`.
         let first = &raw[0];
-        let known_subcommands = ["static","dynamic","purpose","run","report","init","version","help"];
+        let known_subcommands = ["static","dynamic","purpose","run","report","init"];
         if !known_subcommands.contains(&first.as_str()) {
             raw.insert(0, "run".to_owned());
         }
 
         let subcommand = raw.remove(0);
-
-        if subcommand == "help" || subcommand == "--help" || subcommand == "-h" {
-            print_usage();
-            std::process::exit(0);
-        }
-        if subcommand == "version" || subcommand == "--version" {
-            println!("wt {VERSION}");
-            std::process::exit(0);
-        }
 
         let mut json        = false;
         let mut no_cache    = false;

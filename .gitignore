@@ -43,3 +43,12 @@ Thumbs.db
 
 # purpose index
 .purpose/
+
+# wind tunnel runtime output
+wt-output.json
+wt-graph.json
+
+# Python packaging
+dist/
+*.egg-info/
+.ruff_cache/

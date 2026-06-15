@@ -1,7 +1,3 @@
-[build]
-# Use all available cores.
-jobs = 0
-
 [profile.release]
 # Full optimisation for the wt binary.
 opt-level     = 3

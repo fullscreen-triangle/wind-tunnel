@@ -155,10 +155,13 @@ Strike-through (`~~item~~`) marks completed tasks.
 
 ## Phase 8 — Integration + end-to-end test
 
-- [ ] Write `tests/e2e/` with a minimal synthetic project (3-unit cycle)
-- [ ] `wt run tests/e2e/synthetic` reproduces the E05 witness (cycle residual accumulation)
-- [ ] `wt run tests/e2e/synthetic` regime = Turbulent when δ > 0, Phase-locked when δ = 0
-- [ ] CI script (`scripts/ci.sh`): `cargo test --workspace && python src/validation.py`
+- ~~`crates/wt-tests/tests/e2e.rs` — 12 integration tests over the synthetic 3-unit cycle~~
+  - ~~Static: homogeneous cycle → Phase-locked; type mismatch → degraded regime; heterogeneous cycle → cycle candidate~~
+  - ~~E05 witness: δ=0 → zero holonomy; δ=0.05 → violation; magnitude grows with traversal count; magnitude matches formula~~
+  - ~~R_dyn: synchronised units → Phase-locked~~
+  - ~~Purpose: purposeless unit δS=0; purposeful unit δS>0~~
+  - ~~Full pipeline: δ=0 → no violations, JSON round-trip; δ=0.15 → violations in output~~
+- ~~CI script `scripts/ci.sh`: `cargo fmt --check && cargo clippy && cargo test --workspace && python src/validation.py`~~
 
 ---
 
@@ -166,8 +169,8 @@ Strike-through (`~~item~~`) marks completed tasks.
 
 ```
 Phase 0 ✓ → Phase 1 ✓ → Phase 2 ✓ → Phase 3 ✓ → Phase 4 ✓ ─┐
-                                                               ├→ Phase 6 ✓ → Phase 7 ✓ → Phase 8
+                                                               ├→ Phase 6 ✓ → Phase 7 ✓ → Phase 8 ✓
                                                   Phase 5 ✓ ──┘
 ```
 
-Phases 1–7 complete (23/23 tests pass). Phase 8 (end-to-end test + CI) remains.
+**All phases complete. 35/35 tests pass (23 unit + 12 integration). 25/25 numerical validation experiments pass.**

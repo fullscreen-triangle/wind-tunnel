@@ -44,9 +44,8 @@ Thumbs.db
 # purpose index
 .purpose/
 
-# wind tunnel runtime output
-wt-output.json
-wt-graph.json
+# wind tunnel runtime output (written to .wt/ in the analysed project)
+.wt/
 
 # Python packaging
 dist/

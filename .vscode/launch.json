@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "wt run (this project)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "wt",
+      "runtimeArgs": ["run", "${workspaceFolder}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

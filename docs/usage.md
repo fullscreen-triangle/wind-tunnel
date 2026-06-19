@@ -345,6 +345,68 @@ The JSON is also written to `.wt/output.json` after every `wt run`.
 
 ---
 
+## VS Code integration
+
+The `.vscode/` directory in this repository ships three files that wire `wt`
+into VS Code with no manual setup:
+
+### tasks.json — keyboard shortcut
+
+`Ctrl+Shift+B` runs `wt static` on the current workspace immediately.
+
+To pick a different task: `Ctrl+Shift+P` → **Tasks: Run Task** → choose from:
+
+| Task label | What it runs |
+|---|---|
+| `wt: static` | `wt static <workspace>` — default build task |
+| `wt: run (static only)` | `wt run <workspace>` — all phases, no traces |
+| `wt: run (with traces)` | prompts for a traces directory, then runs all three phases |
+| `wt: dynamic` | `wt dynamic <workspace> <traces>` |
+| `wt: purpose` | `wt purpose <workspace> <traces>` |
+| `wt: report` | re-renders `.wt/output.json` |
+| `wt: init (rebuild graph)` | force-rebuilds the dependency graph |
+| `wt: run --json` | full run, JSON output to the terminal |
+
+Output always appears in the integrated terminal panel.
+
+### settings.json — wt-shell terminal profile
+
+`settings.json` defines a terminal profile called **wt-shell** (the beaker icon).
+Open it with `Ctrl+Shift+\`` → dropdown arrow → **wt-shell**.
+
+It automatically sources `.env.local` when the terminal starts, so `HF_TOKEN`
+is set without you having to do anything. This works on Windows (PowerShell),
+Linux, and macOS.
+
+> `settings.json` is git-ignored — it lives only on your machine.
+> `tasks.json` and `launch.json` are committed and travel with the repo.
+
+### Using wt in your other VS Code projects
+
+Copy `.vscode/tasks.json` into any other project:
+
+```sh
+cp /path/to/wind-tunnel/.vscode/tasks.json /path/to/other-project/.vscode/tasks.json
+```
+
+`${workspaceFolder}` expands to that project's root automatically — no edits needed.
+
+For the HuggingFace token, copy `settings.json` too (or set `HF_TOKEN` in your
+system environment once and it will be available everywhere):
+
+```sh
+# Windows — set permanently in user environment
+[System.Environment]::SetEnvironmentVariable("HF_TOKEN", "hf_...", "User")
+
+# Linux / macOS — add to ~/.bashrc or ~/.zshrc
+export HF_TOKEN=hf_...
+```
+
+Once `HF_TOKEN` is in your system environment you never need to source
+`.env.local` manually again.
+
+---
+
 ## CI integration
 
 ```yaml

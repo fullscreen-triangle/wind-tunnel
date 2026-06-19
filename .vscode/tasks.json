@@ -1,0 +1,117 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "wt: static",
+      "type": "shell",
+      "command": "wt",
+      "args": ["static", "${workspaceFolder}"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: run (static only)",
+      "type": "shell",
+      "command": "wt",
+      "args": ["run", "${workspaceFolder}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: run (with traces)",
+      "type": "shell",
+      "command": "wt",
+      "args": ["run", "${workspaceFolder}", "${input:tracesDir}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: dynamic",
+      "type": "shell",
+      "command": "wt",
+      "args": ["dynamic", "${workspaceFolder}", "${input:tracesDir}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: purpose",
+      "type": "shell",
+      "command": "wt",
+      "args": ["purpose", "${workspaceFolder}", "${input:tracesDir}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: report",
+      "type": "shell",
+      "command": "wt",
+      "args": ["report", "${workspaceFolder}/.wt/output.json"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: init (rebuild graph)",
+      "type": "shell",
+      "command": "wt",
+      "args": ["init", "${workspaceFolder}"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "wt: run --json",
+      "type": "shell",
+      "command": "wt",
+      "args": ["run", "${workspaceFolder}", "--json"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "tracesDir",
+      "type": "promptString",
+      "description": "Path to the traces directory (JSONL files, one per unit)",
+      "default": "${workspaceFolder}/traces"
+    }
+  ]
+}

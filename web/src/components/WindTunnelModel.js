@@ -3,7 +3,9 @@ import { Canvas } from "@react-three/fiber";
 import { useGLTF, Environment, OrbitControls } from "@react-three/drei";
 
 function Model() {
-  const { scene } = useGLTF("/free__lamborghini_terzo_millennio_wind_tunnel.glb");
+  const { scene } = useGLTF(
+    "/free__lamborghini_terzo_millennio_wind_tunnel.glb"
+  );
   return <primitive object={scene} />;
 }
 
@@ -12,9 +14,9 @@ export default function WindTunnelModel() {
     <Canvas
       camera={{ position: [0, 1.5, 6], fov: 45 }}
       gl={{ antialias: true }}
-      style={{ width: "100%", height: "100%" }}
+      // Explicit viewport dimensions — never inherit from a broken %chain.
+      style={{ position: "absolute", inset: 0, width: "100vw", height: "100vh" }}
     >
-      {/* Neutral studio lighting — no colour cast. */}
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 8, 5]} intensity={1.2} castShadow />
       <directionalLight position={[-5, 4, -5]} intensity={0.4} />
@@ -25,7 +27,6 @@ export default function WindTunnelModel() {
         <Model />
       </Suspense>
 
-      {/* Orbit enabled for inspection but no auto-rotation. */}
       <OrbitControls
         enableZoom={true}
         enablePan={false}

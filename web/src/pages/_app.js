@@ -7,9 +7,24 @@ import { useRouter } from "next/router";
 
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-mont" });
 
+// Pages that own the full viewport and must not have Navbar/Footer/wrapper.
+const BARE_PAGES = ["/", "/sandbox"];
+
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
-  const isHome = router.pathname === "/";
+  const router  = useRouter();
+  const isBare  = BARE_PAGES.includes(router.pathname);
+
+  if (isBare) {
+    return (
+      <>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Component {...pageProps} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -17,16 +32,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/*
-        On the landing page the canvas is fixed to the viewport, so the main
-        wrapper must be transparent and have no min-height that would push
-        a scrollbar into existence.
-      */}
-      <main
-        className={`${montserrat.variable} font-mont ${
-          isHome ? "bg-transparent" : "bg-light dark:bg-dark w-full min-h-screen"
-        }`}
-      >
+      <main className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}>
         <Navbar />
         <Component {...pageProps} />
         <Footer />

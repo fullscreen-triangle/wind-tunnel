@@ -1,4 +1,5 @@
 import Head from "next/head";
+import SandboxIDE from "@/components/SandboxIDE";
 
 export default function Sandbox() {
   return (
@@ -6,11 +7,7 @@ export default function Sandbox() {
       <Head>
         <title>Wind Tunnel — Sandbox</title>
       </Head>
-      <div className="min-h-screen bg-black text-white flex items-center justify-center font-mono">
-        <p className="text-sm opacity-40 tracking-widest uppercase">
-          Sandbox — coming soon
-        </p>
-      </div>
+      <SandboxIDE />
     </>
   );
 }

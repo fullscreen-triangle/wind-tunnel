@@ -1,0 +1,972 @@
+{
+  "suite": "contact_map_generator",
+  "total": 26,
+  "passed": 26,
+  "failed": 0,
+  "aggregate_verdict": "PASS",
+  "max_relative_error_across_all": 534051788.1957489,
+  "experiments": [
+    {
+      "experiment": "C01",
+      "claim": "Proposition 2.3: Individuation by negation enforces finiteness",
+      "full_occupancy_neg_measure": 0.0,
+      "full_occupancy_can_individuate": false,
+      "valid_agent_cases": [
+        {
+          "fraction": 0.1,
+          "mu_alpha": 0.1,
+          "mu_neg": 0.9,
+          "can_have_separator": true
+        },
+        {
+          "fraction": 0.25,
+          "mu_alpha": 0.25,
+          "mu_neg": 0.75,
+          "can_have_separator": true
+        },
+        {
+          "fraction": 0.5,
+          "mu_alpha": 0.5,
+          "mu_neg": 0.5,
+          "can_have_separator": true
+        },
+        {
+          "fraction": 0.75,
+          "mu_alpha": 0.75,
+          "mu_neg": 0.25,
+          "can_have_separator": true
+        },
+        {
+          "fraction": 0.9,
+          "mu_alpha": 0.9,
+          "mu_neg": 0.1,
+          "can_have_separator": true
+        },
+        {
+          "fraction": 0.99,
+          "mu_alpha": 0.99,
+          "mu_neg": 0.01,
+          "can_have_separator": true
+        }
+      ],
+      "finiteness_enforced": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C02",
+      "claim": "Theorem 2.5: Individuation comparison never completes in finite steps",
+      "mu_omega": 1.0,
+      "mu_neg": 0.8,
+      "trials": [
+        {
+          "n_ops": 1,
+          "total_certified_measure": 0.03124345,
+          "measure_residual": 0.76875655,
+          "structural_residue_positive": true
+        },
+        {
+          "n_ops": 5,
+          "total_certified_measure": 0.06236635,
+          "measure_residual": 0.73763365,
+          "structural_residue_positive": true
+        },
+        {
+          "n_ops": 10,
+          "total_certified_measure": 0.11993763,
+          "measure_residual": 0.68006237,
+          "structural_residue_positive": true
+        },
+        {
+          "n_ops": 50,
+          "total_certified_measure": 0.60505597,
+          "measure_residual": 0.19494403,
+          "structural_residue_positive": true
+        },
+        {
+          "n_ops": 100,
+          "total_certified_measure": 0.8,
+          "measure_residual": 0.0,
+          "structural_residue_positive": true
+        },
+        {
+          "n_ops": 500,
+          "total_certified_measure": 0.8,
+          "measure_residual": 0.0,
+          "structural_residue_positive": true
+        }
+      ],
+      "finite_operations_never_exhaust_complement": true,
+      "all_trials_incomplete": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C03",
+      "claim": "Theorem 2.6: Partition floor beta_min > 0 for any finite partition",
+      "grid_results": [
+        {
+          "nx": 2,
+          "ny": 2,
+          "n_cells": 4,
+          "beta_min": 0.25,
+          "expected_floor": 0.25,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 3,
+          "ny": 3,
+          "n_cells": 9,
+          "beta_min": 0.111111111111,
+          "expected_floor": 0.111111111111,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 4,
+          "ny": 4,
+          "n_cells": 16,
+          "beta_min": 0.0625,
+          "expected_floor": 0.0625,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 5,
+          "ny": 5,
+          "n_cells": 25,
+          "beta_min": 0.04,
+          "expected_floor": 0.04,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 8,
+          "ny": 8,
+          "n_cells": 64,
+          "beta_min": 0.015625,
+          "expected_floor": 0.015625,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 10,
+          "ny": 10,
+          "n_cells": 100,
+          "beta_min": 0.01,
+          "expected_floor": 0.01,
+          "floor_positive": true,
+          "floor_correct": true
+        },
+        {
+          "nx": 20,
+          "ny": 20,
+          "n_cells": 400,
+          "beta_min": 0.0025,
+          "expected_floor": 0.0025,
+          "floor_positive": true,
+          "floor_correct": true
+        }
+      ],
+      "all_floors_positive": true,
+      "all_floors_match_theory": true,
+      "floor_decreasing_with_refinement": true,
+      "floor_never_reaches_zero": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C04",
+      "claim": "Proposition 2.4: Neg(A) = Omega\\A uniquely individuates A without selector",
+      "cases": [
+        {
+          "cell": 0,
+          "area_A": 0.25,
+          "area_neg_A": 0.75,
+          "covers_omega": true,
+          "essentially_disjoint": true,
+          "individuated": true
+        },
+        {
+          "cell": 1,
+          "area_A": 0.25,
+          "area_neg_A": 0.75,
+          "covers_omega": true,
+          "essentially_disjoint": true,
+          "individuated": true
+        },
+        {
+          "cell": 2,
+          "area_A": 0.25,
+          "area_neg_A": 0.75,
+          "covers_omega": true,
+          "essentially_disjoint": true,
+          "individuated": true
+        },
+        {
+          "cell": 3,
+          "area_A": 0.25,
+          "area_neg_A": 0.75,
+          "covers_omega": true,
+          "essentially_disjoint": true,
+          "individuated": true
+        }
+      ],
+      "all_cells_individuated": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C05",
+      "claim": "Proposition 2.8: Detectability iff sigma(A) > beta_P(A)",
+      "total_area": 1.0,
+      "central_mu": 0.36,
+      "central_beta_P": 0.12,
+      "central_detectable": true,
+      "cell_results": [
+        {
+          "cell": 0,
+          "mu": 0.36,
+          "beta_P": 0.12,
+          "detectable": true
+        },
+        {
+          "cell": 1,
+          "mu": 0.12,
+          "beta_P": 0.04,
+          "detectable": true
+        },
+        {
+          "cell": 2,
+          "mu": 0.12,
+          "beta_P": 0.04,
+          "detectable": true
+        },
+        {
+          "cell": 3,
+          "mu": 0.12,
+          "beta_P": 0.04,
+          "detectable": true
+        },
+        {
+          "cell": 4,
+          "mu": 0.12,
+          "beta_P": 0.04,
+          "detectable": true
+        },
+        {
+          "cell": 5,
+          "mu": 0.04,
+          "beta_P": 0.12,
+          "detectable": false
+        },
+        {
+          "cell": 6,
+          "mu": 0.04,
+          "beta_P": 0.12,
+          "detectable": false
+        },
+        {
+          "cell": 7,
+          "mu": 0.04,
+          "beta_P": 0.12,
+          "detectable": false
+        },
+        {
+          "cell": 8,
+          "mu": 0.04,
+          "beta_P": 0.12,
+          "detectable": false
+        }
+      ],
+      "point_sigma": 0.0,
+      "point_subdetectable": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C06",
+      "claim": "Theorem 2.9: Ratio locating_cost/visiting_freq grows without bound as p_A->0",
+      "beta_min": 0.0625,
+      "cases": [
+        {
+          "p_A": 0.25,
+          "visiting_frequency": 0.25,
+          "locating_cost": 0.125,
+          "ratio_loc_to_visit": 0.5
+        },
+        {
+          "p_A": 0.125,
+          "visiting_frequency": 0.125,
+          "locating_cost": 0.1875,
+          "ratio_loc_to_visit": 1.5
+        },
+        {
+          "p_A": 0.0625,
+          "visiting_frequency": 0.0625,
+          "locating_cost": 0.25,
+          "ratio_loc_to_visit": 4.0
+        },
+        {
+          "p_A": 0.03125,
+          "visiting_frequency": 0.03125,
+          "locating_cost": 0.3125,
+          "ratio_loc_to_visit": 10.0
+        },
+        {
+          "p_A": 0.015625,
+          "visiting_frequency": 0.015625,
+          "locating_cost": 0.375,
+          "ratio_loc_to_visit": 24.0
+        },
+        {
+          "p_A": 0.0078125,
+          "visiting_frequency": 0.0078125,
+          "locating_cost": 0.4375,
+          "ratio_loc_to_visit": 56.0
+        },
+        {
+          "p_A": 0.00390625,
+          "visiting_frequency": 0.00390625,
+          "locating_cost": 0.5,
+          "ratio_loc_to_visit": 128.0
+        },
+        {
+          "p_A": 0.001953125,
+          "visiting_frequency": 0.001953125,
+          "locating_cost": 0.5625,
+          "ratio_loc_to_visit": 288.0
+        },
+        {
+          "p_A": 0.0009765625,
+          "visiting_frequency": 0.0009765625,
+          "locating_cost": 0.625,
+          "ratio_loc_to_visit": 640.0
+        }
+      ],
+      "ratio_monotone_increasing": true,
+      "ratio_exceeds_one": true,
+      "visiting_shrinks": true,
+      "ratio_diverging": true,
+      "ratio_first": 0.5,
+      "ratio_last": 640.0,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C07",
+      "claim": "Proposition 2.10: Verification generates infinite regress; non-self-verifiable",
+      "n_cells": 9,
+      "verification_steps": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "frontier_sizes": [
+        1,
+        3,
+        9,
+        9,
+        9,
+        9
+      ],
+      "frontier_non_decreasing": true,
+      "frontier_never_zero": true,
+      "self_referential_structure": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C08",
+      "claim": "Theorem 2.11: Committed record M(t) is monotone non-decreasing",
+      "committed_depths": [
+        0.030404,
+        0.096607,
+        0.02137,
+        0.073434,
+        0.017667,
+        0.03227,
+        0.099922,
+        0.028846,
+        0.067768,
+        0.051322,
+        0.050782,
+        0.054548,
+        0.027301,
+        0.084747,
+        0.018061,
+        0.031076,
+        0.011799,
+        0.034009,
+        0.04669,
+        0.091186
+      ],
+      "M_sequence": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "M_non_decreasing": true,
+      "M_strictly_increasing": true,
+      "uncommit_possible": false,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C09",
+      "claim": "Proposition 3.1: Truth is a cell (positive measure); zero-measure point is subdetectable",
+      "floor": 0.0625,
+      "point_mu": 0.0,
+      "point_detectable": false,
+      "cell_mu": 0.0625,
+      "cell_detectable": true,
+      "above_floor_mu": 0.125,
+      "above_detectable": true,
+      "resolution_sequence": [
+        {
+          "step": 0,
+          "cell_size": 0.5,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 1,
+          "cell_size": 0.25,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 2,
+          "cell_size": 0.125,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 3,
+          "cell_size": 0.0625,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 4,
+          "cell_size": 0.03125,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 5,
+          "cell_size": 0.015625,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 6,
+          "cell_size": 0.0078125,
+          "detectable": true,
+          "is_point": false
+        },
+        {
+          "step": 7,
+          "cell_size": 0.00390625,
+          "detectable": true,
+          "is_point": false
+        }
+      ],
+      "limit_reaches_point_after_8_halvings": false,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C10",
+      "claim": "Proposition 3.2: mu(Sep) = knowledge = lower bound on unknown (dual reading)",
+      "total_sep_mu": 0.125,
+      "stages": [
+        {
+          "step": 1,
+          "certified_sep_cells": 1,
+          "total_knowledge_mu": 0.0625,
+          "total_remaining_mu": 0.0625,
+          "remaining_floor": 0.0625,
+          "knowledge_plus_remaining": 0.125
+        },
+        {
+          "step": 2,
+          "certified_sep_cells": 2,
+          "total_knowledge_mu": 0.125,
+          "total_remaining_mu": 0,
+          "remaining_floor": 0.0,
+          "knowledge_plus_remaining": 0.125
+        }
+      ],
+      "separator_measure_invariant": true,
+      "floor_positive_while_cells_remain": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C11",
+      "claim": "Proposition 3.3: Instrument array CM estimate monotone non-increasing with more instruments",
+      "cells_A": [
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "cells_B": [
+        0.0,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "individual_estimates": [
+        0.0,
+        0.34997758,
+        0.0
+      ],
+      "running_minimum": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composite_estimate": 0.0,
+      "monotone_non_increasing": true,
+      "composite_leq_all_individual": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C12",
+      "claim": "Proposition 3.4: Cell subdivision reduces floor but never reaches zero",
+      "subdivision_steps": [
+        {
+          "step": 1,
+          "n_cells": 2,
+          "mu_subcell_1": 0.5,
+          "mu_subcell_2": 0.5,
+          "mu_sum_conserved": true,
+          "new_floor": 0.5,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 2,
+          "n_cells": 3,
+          "mu_subcell_1": 0.25,
+          "mu_subcell_2": 0.25,
+          "mu_sum_conserved": true,
+          "new_floor": 0.25,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 3,
+          "n_cells": 4,
+          "mu_subcell_1": 0.125,
+          "mu_subcell_2": 0.125,
+          "mu_sum_conserved": true,
+          "new_floor": 0.125,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 4,
+          "n_cells": 5,
+          "mu_subcell_1": 0.0625,
+          "mu_subcell_2": 0.0625,
+          "mu_sum_conserved": true,
+          "new_floor": 0.0625,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 5,
+          "n_cells": 6,
+          "mu_subcell_1": 0.03125,
+          "mu_subcell_2": 0.03125,
+          "mu_sum_conserved": true,
+          "new_floor": 0.03125,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 6,
+          "n_cells": 7,
+          "mu_subcell_1": 0.015625,
+          "mu_subcell_2": 0.015625,
+          "mu_sum_conserved": true,
+          "new_floor": 0.015625,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 7,
+          "n_cells": 8,
+          "mu_subcell_1": 0.0078125,
+          "mu_subcell_2": 0.0078125,
+          "mu_sum_conserved": true,
+          "new_floor": 0.0078125,
+          "floor_positive": true,
+          "floor_is_point": false
+        },
+        {
+          "step": 8,
+          "n_cells": 9,
+          "mu_subcell_1": 0.00390625,
+          "mu_subcell_2": 0.00390625,
+          "mu_sum_conserved": true,
+          "new_floor": 0.00390625,
+          "floor_positive": true,
+          "floor_is_point": false
+        }
+      ],
+      "floor_decreasing": true,
+      "floor_never_zero": true,
+      "floor_never_point": true,
+      "measure_conserved_at_each_step": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C13",
+      "claim": "Theorem 3.5: beta_min invariant under all rearrangements of observable states",
+      "floor": 0.0625,
+      "floor_arrangement_1": 0.0625,
+      "floor_arrangement_2_permuted": 0.0625,
+      "floor_all_pass": 0.0625,
+      "floor_all_fail": 0.0625,
+      "water_level_invariant": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C14",
+      "claim": "Trijection I\u2192II: beta_min uniquely determines CM_bmin (given fixed phi)",
+      "beta_min": 0.0625,
+      "contact_locus_size": 16,
+      "n_edges_in_CM_bmin": 24,
+      "CM_bmin_sample": {
+        "(0, 1)": 0.0,
+        "(0, 4)": 0.41086956,
+        "(1, 2)": 0.0,
+        "(1, 5)": 0.41086956,
+        "(2, 3)": 0.0
+      },
+      "CM_bmin_reproducible": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C15",
+      "claim": "Trijection II\u2192I: CM_bmin domain (contact locus) determines beta_min",
+      "true_floor": 0.0625,
+      "recovered_floor": 0.0625,
+      "recovery_correct": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C16",
+      "claim": "Trijection II\u2192III: CM_bmin uniquely determines L_min via contact potential",
+      "n_edges_CM_bmin": 12,
+      "M_bmin_at_sample": 0.34997758,
+      "T_at_sample": 0.00785398,
+      "L_min_at_sample": -0.3421236,
+      "L_inflated": -0.5421236,
+      "different_CM_gives_different_L": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C17",
+      "claim": "Trijection III->II: L_min determines CM_bmin via M_bmin coefficient extraction",
+      "true_CM_bmin": {
+        "(0, 1)": 0.3,
+        "(1, 2)": 0.45,
+        "(0, 3)": 0.2,
+        "(2, 3)": 0.55
+      },
+      "extracted_CM_bmin": {
+        "(0, 1)": 0.3,
+        "(1, 2)": 0.45,
+        "(0, 3)": 0.2,
+        "(2, 3)": 0.55
+      },
+      "extraction_correct": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C18",
+      "claim": "Corollary 4.10: Two Lagrangians differing by boundary term give same action",
+      "a": 1.7,
+      "S1": -0.0,
+      "S2": 0.00053407,
+      "difference": 0.00053407,
+      "boundary_term_value": 0.0,
+      "L1_neq_L2": true,
+      "S1_eq_S2": true,
+      "action_not_unique_inverse": true,
+      "verdict": "PASS",
+      "max_relative_error": 534051788.1957489
+    },
+    {
+      "experiment": "C19",
+      "claim": "Corollary 4.11: Inflation increases CM distances; decreases L pointwise",
+      "cm_bmin_sample": {
+        "(0, 1)": 0.0,
+        "(0, 3)": 0.349978,
+        "(1, 2)": 0.0,
+        "(1, 4)": 0.349978
+      },
+      "inflation_results": [
+        {
+          "delta_CM": 0.0,
+          "L_change_from_min": -0.0,
+          "L_inflated_leq_Lmin": true,
+          "CM_distances_increased": true,
+          "inflation_moves_away_from_ground_state": true
+        },
+        {
+          "delta_CM": 0.05,
+          "L_change_from_min": -0.6,
+          "L_inflated_leq_Lmin": true,
+          "CM_distances_increased": true,
+          "inflation_moves_away_from_ground_state": true
+        },
+        {
+          "delta_CM": 0.1,
+          "L_change_from_min": -1.2,
+          "L_inflated_leq_Lmin": true,
+          "CM_distances_increased": true,
+          "inflation_moves_away_from_ground_state": true
+        },
+        {
+          "delta_CM": 0.2,
+          "L_change_from_min": -2.4,
+          "L_inflated_leq_Lmin": true,
+          "CM_distances_increased": true,
+          "inflation_moves_away_from_ground_state": true
+        },
+        {
+          "delta_CM": 0.5,
+          "L_change_from_min": -6.0,
+          "L_inflated_leq_Lmin": true,
+          "CM_distances_increased": true,
+          "inflation_moves_away_from_ground_state": true
+        }
+      ],
+      "all_correct": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C20",
+      "claim": "Proposition 5.3: Software system (U, d_S, mu) is a BRS with positive floor",
+      "n_units": 5,
+      "coupling_weights": {
+        "auth": 0.2,
+        "session": 0.13333333333333333,
+        "user": 0.26666666666666666,
+        "logger": 0.06666666666666667,
+        "api": 0.3333333333333333
+      },
+      "w_min": 0.06666667,
+      "beta_min_discrete": 0.06666667,
+      "axiom_compact": true,
+      "axiom_positive_weights": true,
+      "axiom_resolution_floor": true,
+      "floor_positive": true,
+      "distances_symmetric": true,
+      "distances_non_negative": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C21",
+      "claim": "Theorem 5.5: Universal local validity does not imply CM_S = CM_bmin",
+      "units": [
+        {
+          "name": "u1",
+          "produces": "int32"
+        },
+        {
+          "name": "u2",
+          "produces": "str"
+        },
+        {
+          "name": "u3",
+          "produces": "int64"
+        }
+      ],
+      "local_validations": {
+        "u1": true,
+        "u2": true,
+        "u3": true
+      },
+      "all_local_pass": true,
+      "coercion_kappa": "int32 -> int64",
+      "kappa_norm": 1,
+      "holonomy_per_traversal": 1,
+      "CM_bmin_u1_u3": 0.0,
+      "CM_S_u1_u3": 1,
+      "contact_map_inflated_above_ground": true,
+      "local_pass_does_not_imply_CM_at_bmin": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C22",
+      "claim": "Theorem 6.2: CMG halts when marginal_return < beta_min",
+      "beta_min": 0.0625,
+      "halt_at_step": 1,
+      "final_estimate": 0.82772079,
+      "n_marginal_returns": 2,
+      "all_returns_non_negative": true,
+      "halt_condition_met": true,
+      "estimate_non_increasing": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C23",
+      "claim": "Definition 6.3: Composition = pointwise min; never inflates estimate",
+      "n_edges": 12,
+      "sample_edges": {
+        "(0, 1)": {
+          "cm_1": 0.0,
+          "cm_2": 0.349978,
+          "composed": 0.0
+        },
+        "(0, 3)": {
+          "cm_1": 0.349978,
+          "cm_2": 0.0,
+          "composed": 0.0
+        },
+        "(1, 2)": {
+          "cm_1": 0.0,
+          "cm_2": 0.349978,
+          "composed": 0.0
+        },
+        "(1, 4)": {
+          "cm_1": 0.349978,
+          "cm_2": 0.0,
+          "composed": 0.0
+        }
+      },
+      "composed_leq_cm1": true,
+      "composed_leq_cm2": true,
+      "never_inflates": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C24",
+      "claim": "Theorem 7.1 Monotone Commitment: committed edge set C_t is non-decreasing",
+      "steps": 8,
+      "committed_set_sizes": [
+        0,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        12
+      ],
+      "monotone_non_decreasing": true,
+      "never_revoked": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C25",
+      "claim": "Theorem 7.1 Non-Inflation: CM estimates monotone non-increasing across blocks",
+      "n_edges": 12,
+      "sample": {
+        "(0, 1)": {
+          "cm_0": 1.0,
+          "cm_1_static": 0.0,
+          "cm_2_composed": 0.0
+        },
+        "(0, 3)": {
+          "cm_0": 1.0,
+          "cm_1_static": 0.349978,
+          "cm_2_composed": 0.0
+        },
+        "(1, 2)": {
+          "cm_0": 1.0,
+          "cm_1_static": 0.0,
+          "cm_2_composed": 0.0
+        },
+        "(1, 4)": {
+          "cm_0": 1.0,
+          "cm_1_static": 0.349978,
+          "cm_2_composed": 0.0
+        }
+      },
+      "cm2_leq_cm1": true,
+      "cm1_leq_cm0": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    },
+    {
+      "experiment": "C26",
+      "claim": "Theorem 7.1 Floor Preservation: CM_hat >= CM_bmin at every step via clamping",
+      "beta_min": 0.0625,
+      "n_steps": 6,
+      "n_edges": 24,
+      "raw_estimates_violate_floor": true,
+      "clamped_estimates_steps": [
+        {
+          "step": 0,
+          "all_above_bmin_with_clamping": true
+        },
+        {
+          "step": 1,
+          "all_above_bmin_with_clamping": true
+        },
+        {
+          "step": 2,
+          "all_above_bmin_with_clamping": true
+        },
+        {
+          "step": 3,
+          "all_above_bmin_with_clamping": true
+        },
+        {
+          "step": 4,
+          "all_above_bmin_with_clamping": true
+        },
+        {
+          "step": 5,
+          "all_above_bmin_with_clamping": true
+        }
+      ],
+      "floor_preserved_at_all_steps": true,
+      "verdict": "PASS",
+      "max_relative_error": 0.0
+    }
+  ]
+}
